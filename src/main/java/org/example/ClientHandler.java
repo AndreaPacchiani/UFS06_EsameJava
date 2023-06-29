@@ -1,5 +1,7 @@
 package org.example;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -33,20 +35,13 @@ public class ClientHandler extends Thread {
                         case all_vegans:
                             answer = new Answer(piattoManager.getPiattiVegani());
                             break;
-
                         case more_caloric:
-
-                            if (piattoManager.getPiattoConCalorieMaggiori() != null) {
-                                answer = new Answer(Collections.singletonList(piattoManager.getPiattoConCalorieMaggiori()));
-                            } else {
-                                answer = new Answer(Collections.emptyList());
-                            }
+                            answer = new Answer(Collections.singletonList(piattoManager.getPiattoConCalorieMaggiori()));
                             break;
-
-                        case exit:
-                            return;
                     }
-                    out.println(answer.toString());
+                    Gson gson = new Gson();
+                    String jsonAnswer = gson.toJson(answer);
+                    out.println(jsonAnswer);
                 } catch (IllegalArgumentException e) {
                     out.println("Comando non valido");
                 }
