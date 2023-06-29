@@ -38,6 +38,8 @@ public class ClientHandler extends Thread {
                         case more_caloric:
                             answer = new Answer(Collections.singletonList(piattoManager.getPiattoConCalorieMaggiori()));
                             break;
+                        case exit:
+                            return;
                     }
                     Gson gson = new Gson();
                     String jsonAnswer = gson.toJson(answer);
